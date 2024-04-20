@@ -1,0 +1,19 @@
+[user]
+	email = ilia@lutchenko.com
+	name = Ilia Lutchenko
+[core]
+	editor = vim
+[alias]
+  co = checkout
+  cp = cherry-pick
+  cpc = cherry-pick --continue
+  cpa = cherry-pick --abort
+  rb = rebase
+  rbc = rebase --continue
+  rba = rebase --abort
+  ci = commit
+  st = status
+  br = branch
+  hist = log --pretty=format:\"%h %ad | %s%d [%an]\" --graph --date=short
+  type = cat-file -t
+  dump = cat-file -p
