@@ -9,6 +9,7 @@ export ZSH="/home/$USER/.oh-my-zsh"
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
 ZSH_THEME="fishy"
+# ZSH_THEME="nord-extended/nord"
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
@@ -70,7 +71,7 @@ ZSH_THEME="fishy"
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git zsh-syntax-highlighting zsh-autosuggestions dirhistory history sudo)
+plugins=(git dirhistory history sudo zsh-autosuggestions zsh-history-substring-search zsh-syntax-highlighting)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -144,7 +145,7 @@ PROMPT='%F{cyan}%~%f %F{white}${vcs_info_msg_0_}%f> '
 #setopt PROMPT_SUBST
 #PROMPT='%F{green}%~%f %F{white}${vcs_info_msg_0_}%f$ '
 
-source /home/ilia.lutchenko/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source $ZSH/custom/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
