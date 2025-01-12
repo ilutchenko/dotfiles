@@ -29,9 +29,9 @@ Plugin 'tpope/vim-fugitive'
 
 "nerdtree plugin section
 Plugin 'scrooloose/nerdtree'
-autocmd vimenter * NERDTree
-autocmd StdinReadPre * let s:std_in=1
-autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+" autocmd vimenter * NERDTree
+" autocmd StdinReadPre * let s:std_in=1
+" autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 map <C-n> :NERDTreeToggle<CR>
 "let g:NERDTreeDirArrowExpandable = '+'
 "let g:NERDTreeDirArrowCollapsible = '-'
@@ -146,9 +146,8 @@ let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 let g:syntastic_c_include_dirs = [ './libopencm3/include', 'include' ]
 
+hi clear SpellBad
+hi SpellBad cterm=underline,bold gui=undercurl
+hi SpellLocal cterm=bold gui=undercurl
 
-
-
-
-
-
+syntax on
