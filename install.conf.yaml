@@ -17,6 +17,27 @@
     ~/.oh-my-zsh/custom/themes/: zsh/themes
 
 - shell:
-  - [git submodule update --init --recursive, Installing submodules]
-  - vim +PluginInstall +qall
-  - bash tmux/plugins/tpm/scripts/update_plugin.sh
+  -
+    command: sudo apt install vim tmux zsh
+    stdin: true
+    stdout: true
+    description: Install essential software
+    quiet: false
+  -
+    command: git submodule update --init --recursive
+    stdin: true
+    stdout: true
+    description: Installing submodules
+    quiet: false
+  -
+    command: vim +PluginInstall +qall
+    stdin: true
+    stdout: true
+    description: Install Vim plugins
+    quiet: false
+  -
+    command: bash tmux/plugins/tpm/scripts/update_plugin.sh
+    stdin: true
+    stdout: true
+    description: Install tmux plugins
+    quiet: false
