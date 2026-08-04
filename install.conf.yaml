@@ -18,7 +18,7 @@
 
 - shell:
   -
-    command: sudo apt install vim tmux zsh
+    command: sudo dnf install vim tmux zsh
     stdin: true
     stdout: true
     description: Install essential software
