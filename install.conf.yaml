@@ -1,43 +1,66 @@
 - defaults:
     link:
       relink: true
-      
+      create: true
+
 - clean: ['~']
+
+# These run before the links are created: oh-my-zsh has to exist before we can
+# symlink into its custom/ directories.
+- shell:
+  -
+    command: bash install-packages.sh
+    stdin: true
+    stdout: true
+    stderr: true
+    description: Install essential software
+  -
+    command: test -d "$HOME/.oh-my-zsh" || git clone --depth=1 https://github.com/ohmyzsh/ohmyzsh.git "$HOME/.oh-my-zsh"
+    stdout: true
+    stderr: true
+    description: Install oh-my-zsh
 
 - link:
     ~/.dotfiles: ''
     ~/.tmux.conf: tmux/tmux.conf
-    ~/.tmux: tmux/
-    ~/.vim: vim/
+    ~/.tmux: tmux
+    ~/.vim: vim
     ~/.vimrc: vim/vimrc
-    ~/.git: git/
+    ~/.git: git
     ~/.gitconfig: git/gitconfig
     ~/.zshrc: zsh/zshrc
-    ~/.oh-my-zsh/custom/plugins/: zsh/plugins
-    ~/.oh-my-zsh/custom/themes/: zsh/themes
+    # force: oh-my-zsh ships these directories, so they have to be replaced
+    ~/.oh-my-zsh/custom/plugins:
+      path: zsh/plugins
+      force: true
+    ~/.oh-my-zsh/custom/themes:
+      path: zsh/themes
+      force: true
 
 - shell:
-  -
-    command: sudo dnf install vim tmux zsh
-    stdin: true
-    stdout: true
-    description: Install essential software
-    quiet: false
   -
     command: git submodule update --init --recursive
     stdin: true
     stdout: true
+    stderr: true
     description: Installing submodules
     quiet: false
   -
     command: vim +PluginInstall +qall
     stdin: true
     stdout: true
+    stderr: true
     description: Install Vim plugins
     quiet: false
   -
-    command: bash tmux/plugins/tpm/scripts/update_plugin.sh
+    # tpm refuses to run unless TMUX_PLUGIN_MANAGER_PATH is set in the tmux
+    # server environment, which is not the case when a server started before
+    # this config was linked is still running. Set it explicitly first.
+    command: |
+      tmux set-environment -g TMUX_PLUGIN_MANAGER_PATH "$HOME/.tmux/plugins/" 2>/dev/null || true
+      bash tmux/plugins/tpm/scripts/install_plugins.sh
     stdin: true
     stdout: true
+    stderr: true
     description: Install tmux plugins
     quiet: false
